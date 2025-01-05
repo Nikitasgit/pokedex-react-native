@@ -4,6 +4,7 @@ import { Image, StyleSheet, Text, View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedText } from "./components/ThemedText";
 import { Card } from "./components/Card";
+import { PokemonCard } from "./components/pokemon/PokemonCard";
 
 export default function Index() {
   const colors = useThemesColors();
@@ -27,11 +28,15 @@ export default function Index() {
       <Card style={styles.card}>
         <FlatList
           numColumns={3}
+          columnWrapperStyle={styles.gridGap}
+          contentContainerStyle={[styles.gridGap, styles.list]}
           data={pokemons}
           renderItem={({ item }) => (
-            <Card style={{ flex: 1 / 3 }}>
-              <Text>{item.name}</Text>
-            </Card>
+            <PokemonCard
+              id={item.id}
+              name={item.name}
+              style={{ flex: 1 / 3 }}
+            />
           )}
           keyExtractor={(item) => item.id.toString()}
         />
@@ -53,5 +58,11 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
+  },
+  gridGap: {
+    gap: 8,
+  },
+  list: {
+    padding: 12,
   },
 });
